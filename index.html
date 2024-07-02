@@ -1,1 +1,189 @@
-d
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Birthday Quiz for Erdinc Balci</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f9f9f9;
+      text-align: center;
+      padding: 20px;
+    }
+    .quiz-container {
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border: 1px solid #ddd;
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+    .question {
+      margin-bottom: 20px;
+    }
+    .options {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .option {
+      margin: 5px;
+      padding: 10px 20px;
+      background-color: #63b1f5;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      width: 80%;
+    }
+    .option:hover {
+      background-color: rgb(40, 78, 140);
+    }
+    .result {
+      margin-top: 40px;
+      font-weight: bold;
+      color: #d40d06;
+    }
+    .result img {
+      max-width: 100%;
+      height: auto;
+      margin-top: 20px;
+      border-radius: 10px;
+    }
+    .final-message {
+      margin-top: 40px;
+      color: #5cb85c;
+    }
+    .final-message img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-container">
+    <h1>Bilgi Yarismasina Hos Geldiniz!</h1>
+    <div class="question">
+      <h2 id="questionText">Question 1: Erdinc Balci’nin en sevilen ozelligi nedir?</h2>
+      <div class="options" id="optionsContainer">
+        <div class="option" onclick="checkAnswer('A')">A) Dusunceli olması</div>
+        <div class="option" onclick="checkAnswer('B')">B) Bec olması</div>
+      </div>
+    </div>
+    <div class="result" id="resultMessage"></div>
+    <img src="" id="wrongImage" style="display: none;">
+    <div class="final-message" id="finalMessage" style="display: none;">
+      <h2>Sevgili abicim oncellikle butun sorulari dogru cevapladin, tebrikler! Dogum gunun kutlu olsun, iyi ki dogmussun. Seni cok seviyorum. Yeni yasin bombastik olsun, optum, by.</h2>
+      <img src="https://gifdb.com/images/high/40th-birthday-498-x-371-gif-rq6esgyaxmcsy6d3.gif" alt="Birthday GIF">
+    </div>
+    <script>
+      const questions = [
+        {
+          question: "Erdinc Balci’nin en sevilen ozelligi nedir?",
+          options: ["Dusunceli olması", "Bec olması"],
+          answer: "B",
+          wrongImage: "https://archive.org/download/blogger-image-279954257/blogger-image-279954257.jpg"
+        },
+        {
+          question: "Dunyanin en muhtesem 8’inci harikası nedir?",
+          options: ["Herhangi bir Michelangelo heykeli", "Valla Kanyonu", "Mavis Busenur Balci"],
+          answer: "C",
+          wrongImage: "https://eksiup.com/images/80/93/cf241367f6rt.jpg"
+        },
+        {
+          question: "Balci ailesinin en gicik üyesi kimdir?",
+          options: ["Mavis Busenur Balci", "Bulut Balci", "Kemal Balci", "Gulenaz Balci", "Erdinc Balci"],
+          answer: "E",
+          wrongImage: "https://cdn.webtekno.com/media/cache/content_detail_v2/article/139563/nah-hareketinin-kullanimlari-ve-kokeni-1703602976.jpg"
+        },
+        {
+          question: "Bulut Balci’nin en cok bec demeyi sevdigi Balci ailesinin o kutlu bireyi kimdir?",
+          options: ["Sevinc Balci", "Mavis Busenur Balci", "Erdinc Balci"],
+          answer: "C",
+          wrongImage: "https://cdn.myhealthteams.com/graphic/616dd31965df61615a8c0962/woriginal/Meme-Famous_Man_Uses_Notoriety_To_Raise_Funds_for_Multiple_Sclerosis-532aa03e3c46107a9342c7f1aad2a4a0.webp?1634587412"
+        },
+        {
+          question: "Balci ailesinde ogutucu olarak bilinen acikinca Snickers’tan çok daha fazlasini yemesi gereken 'Annnoo yemek ne zaman hazır olur??!!' gibi sorularla annesini darlayan aile üyesi kimdir?",
+          options: ["Bulut Balci", "Kemal Balci", "Erdinc Balci"],
+          answer: "C",
+          wrongImage: "https://media.tenor.com/SKfWMhuHvC8AAAAe/we-all-make-bad-decisions-bad-decision.png"
+        },
+        {
+          question: "Ailenin en hortlagi kimdir?",
+          options: ["Erdinc Balci", "Messi", "Irvin Yalom", "Gollum"],
+          answer: "A",
+          wrongImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSiTX3qcQYzdaCymb-zwD0Xcyx-9n2sghjOg&s"
+        },
+        {
+          question: "Balci ailesinin en ohayyo gozayimasi ne zaman dogmustur?",
+          options: ["2 Temmuz 1982", "M.O 9 yy", "12. Gunun safaginda", "ben ne bilim aq"],
+          answer: "A",
+          wrongImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmfsPEzIM8yrOSF95oat5kXZVta5UGC5hNZw&s"
+        },
+        {
+          question: "Erdinc Balci’nin en sevdiği kardesi kimdir?",
+          options: ["Sevinc Balci", "Mavis Busenur Balci", "do not know nigga"],
+          answer: "B",
+          wrongImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3FgmaEQwa7qho16Z0YyA6muBupYZ9n5kp8Q&s"
+        },
+        {
+          question: "Balci ailesinde Beyaz Dis, Abba olarak anilan uzun boylu biraz gicik ama sevimli, dogru, caliskan, iyi niyetli, biraz asabi ama heyecanlı olup ailesini cok seven kisi kimdir?",
+          options: ["Erdinc Balci", "Elon Musk"],
+          answer: "A",
+          wrongImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeX3gg6jdrAuvWeScKJ5H1L0vmh2NzbNRJ6g&s"
+        }
+      ];
+
+      let currentQuestion = 0;
+      let score = 0;
+
+      function showQuestion() {
+        const question = questions[currentQuestion];
+        document.getElementById('questionText').textContent = `${currentQuestion + 1}) ${question.question}`;
+
+        const optionsContainer = document.getElementById('optionsContainer');
+        optionsContainer.innerHTML = '';
+        question.options.forEach((option, index) => {
+          const optionElem = document.createElement('div');
+          optionElem.classList.add('option');
+          optionElem.textContent = String.fromCharCode(65 + index) + ') ' + option;
+          optionElem.setAttribute('onclick', `checkAnswer('${String.fromCharCode(65 + index)}')`);
+          optionsContainer.appendChild(optionElem);
+        });
+
+        document.getElementById('resultMessage').textContent = '';
+        document.getElementById('wrongImage').style.display = 'none';
+      }
+
+      function checkAnswer(selectedOption) {
+        const question = questions[currentQuestion];
+
+        if (selectedOption === question.answer) {
+          score++;
+          document.getElementById('resultMessage').textContent = 'Dogru bildin sevgili bec yarismaci!';
+          currentQuestion++;
+          if (currentQuestion < questions.length) {
+            setTimeout(showQuestion, 1000);
+          } else {
+            document.querySelector('.question').style.display = 'none';
+            document.querySelector('.options').style.display = 'none';
+            document.getElementById('finalMessage').style.display = 'block';
+          }
+        } else {
+          document.getElementById('resultMessage').textContent = 'Yanlis bildin sevgili bec yarismaci!!';
+          document.getElementById('wrongImage').src = question.wrongImage;
+          document.getElementById('wrongImage').style.display = 'block';
+        }
+      }
+
+      showQuestion();
+    </script>
+  </div>
+</body>
+</html>
